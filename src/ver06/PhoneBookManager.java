@@ -1,5 +1,6 @@
 package ver06;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PhoneBookManager implements SubMenuItem{
@@ -12,68 +13,85 @@ public class PhoneBookManager implements SubMenuItem{
 		numOfFriends = 0;
 	}
 	
-	public void dataInput() {
-		System.out.println("데이터 입력을 시작합니다..");
-		System.out.println("1.일반, 2.동창 3.회사");
-		System.out.print("선택>>");
-		//사용자로부터 친구정보를 입력받기위한 준비
-		Scanner scan = new Scanner(System.in);
-						
-		String iName,iPhone,imajor,iCompany_Name;
-		int ilevel;
-		int res = scan.nextInt();
-		if(res==GENERAL) {
-		//공통사항 입력받기
-		System.out.print("이름:"); iName = scan.next();
-		System.out.print("전화번호:"); iPhone = scan.next();
-		/*
-		1.친구정보를 입력받은후...
-		2.객체배열 0번방에 객체를 저장하고...
-		3.numOfFriends 변수를 1 증가시킨다.(후위증가)
-		*/
-		PhoneInfo fri = 
-				new PhoneInfo(iName, iPhone);
-		myFriends[numOfFriends++] = fri;
-		System.out.println("데이터 입력이 완료되었습니다.");
-		}
-		else if(res==SCHOOL) {
+	public void dataInput() throws MenuSelectException {
+		try {
+			System.out.println("데이터 입력을 시작합니다..");
+			System.out.println("1.일반, 2.동창 3.회사");
+			System.out.print("선택>>");
+			//사용자로부터 친구정보를 입력받기위한 준비
+			Scanner scan = new Scanner(System.in);
+							
+			String iName,iPhone,imajor,iCompany_Name;
+			int ilevel;
+			int res = scan.nextInt();
+			
+			if(res<1 || res>3) {
+				MenuSelectException e = new MenuSelectException();
+				throw e;
+			}
+			
+			if(res==GENERAL) {
+			//공통사항 입력받기
 			System.out.print("이름:"); iName = scan.next();
 			System.out.print("전화번호:"); iPhone = scan.next();
-			System.out.print("전공:"); imajor = scan.next();
-			System.out.print("학년:"); ilevel = scan.nextInt();
+			/*
+			1.친구정보를 입력받은후...
+			2.객체배열 0번방에 객체를 저장하고...
+			3.numOfFriends 변수를 1 증가시킨다.(후위증가)
+			*/
 			PhoneInfo fri = 
-					new PhoneSchoolInfo(iName, iPhone,imajor, ilevel);
-			myFriends[numOfFriends++] = fri;
-			System.out.print("데이터 입력이 완료되었습니다.");
-		}
-		else if(res==COMPANY) {
-			System.out.print("이름:"); iName = scan.next();
-			System.out.print("전화번호:"); iPhone = scan.next();
-			System.out.print("회사:"); iCompany_Name = scan.next();
-			PhoneInfo fri = 
-					new PhoneCompanyInfo(iName, iPhone,iCompany_Name);
+					new PhoneInfo(iName, iPhone);
 			myFriends[numOfFriends++] = fri;
 			System.out.println("데이터 입력이 완료되었습니다.");
+			}
+			else if(res==SCHOOL) {
+				System.out.print("이름:"); iName = scan.next();
+				System.out.print("전화번호:"); iPhone = scan.next();
+				System.out.print("전공:"); imajor = scan.next();
+				System.out.print("학년:"); ilevel = scan.nextInt();
+				PhoneInfo fri = 
+						new PhoneSchoolInfo(iName, iPhone,imajor, ilevel);
+				myFriends[numOfFriends++] = fri;
+				System.out.print("데이터 입력이 완료되었습니다.");
+			}
+			else if(res==COMPANY) {
+				System.out.print("이름:"); iName = scan.next();
+				System.out.print("전화번호:"); iPhone = scan.next();
+				System.out.print("회사:"); iCompany_Name = scan.next();
+				PhoneInfo fri = 
+						new PhoneCompanyInfo(iName, iPhone,iCompany_Name);
+				myFriends[numOfFriends++] = fri;
+				System.out.println("데이터 입력이 완료되었습니다.");
+			}
+		}
+		catch(InputMismatchException e) {
+			System.out.println("에러,정수를입력하세요");
+			dataInput();
 		}
 	}
 	
 	public void dataSearch() {
-		System.out.println("데이터 검색을 시작합니다..");
-		Scanner scan = new Scanner(System.in);
-		System.out.print("검색할 이름을 입력하세요:");
-		String searchName = scan.nextLine();
-		
-		for(int i=0 ; i<numOfFriends ; i++) {
+			System.out.println("데이터 검색을 시작합니다..");
+			Scanner scan = new Scanner(System.in);
+			System.out.print("검색할 이름을 입력하세요:");
+			String searchName = scan.nextLine();
 			
-			System.out.println("검색중인이름:"+ myFriends[i].name);
-			
-			//검색할 이름과 객체의 이름이 일치하는 경우 모든정보를 출력함
-			if(searchName.compareTo(myFriends[i].name)==0) {
-				myFriends[i].showPhoneInfo();
+			for(int i=0 ; i<numOfFriends ; i++) {
 				
-				System.out.println("데이터 검색이 완료되었습니다.");
+				System.out.println("검색중인이름:"+ myFriends[i].name);
+				
+				//검색할 이름과 객체의 이름이 일치하는 경우 모든정보를 출력함
+				if(searchName.compareTo(myFriends[i].name)==0) {
+					myFriends[i].showPhoneInfo();
+					
+					System.out.println("데이터 검색이 완료되었습니다.");
+				}
+				else {
+					System.out.println("검색된 결과가 없습니다.");
+					NullPointerException e;
+				}
 			}
-		}
+			
 	}
 	public void dataDelete() {
 		System.out.println("데이터 삭제를 시작합니다..");
@@ -100,7 +118,9 @@ public class PhoneBookManager implements SubMenuItem{
 		
 		if(deleteIndex==-1) {
 			//검색된 데이터가 없는경우
+			System.out.println("==검색된 데이터가 없습니다==");
 			System.out.println("==삭제된 데이터가 없습니다==");
+			NullPointerException e;
 		}
 		else {
 			/*

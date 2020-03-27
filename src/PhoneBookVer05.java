@@ -5,7 +5,7 @@ import ver05.PhoneBookManager;
 
 import java.util.logging.Handler;
 
-public class PhoneBookVer5 implements MenuItem {
+public class PhoneBookVer05 implements MenuItem {
 	public static void printMenu() {
 		System.out.println("선택하세요...");
 		System.out.println("1.데이터 입력");

@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
-import ver04.PhoneBookManager;
+import ver03.PhoneBookManager;
 import java.util.logging.Handler;
 
-public class PhoneBookVer4 {
+public class PhoneBookVer09 {
 	public static void printMenu() {
 		System.out.println("선택하세요...");
 		System.out.println("1.데이터 입력");

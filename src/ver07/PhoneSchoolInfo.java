@@ -1,6 +1,6 @@
-package ver06;
+package ver07;
 
-import ver06.PhoneInfo;
+import ver07.PhoneInfo;
 
 public class PhoneSchoolInfo extends PhoneInfo {
 	String major;
@@ -20,4 +20,9 @@ public class PhoneSchoolInfo extends PhoneInfo {
 		System.out.println("학년:"+ level);
 	}
 	
+	@Override
+	public String toString() {
+		return "data 이름=" + name + ", 번호=" + phoneNumber
+				+ ", 전공=" + major+ ", 학년=" + level;
+	}
 }
