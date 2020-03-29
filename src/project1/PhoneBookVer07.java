@@ -1,11 +1,12 @@
+package project1;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import ver06.MenuItem;
-import ver06.PhoneBookManager;
-import ver06.MenuSelectException;
+import ver07.MenuItem;
+import ver07.PhoneBookManager;
+import ver07.MenuSelectException;
 
-public class PhoneBookVer06 implements MenuItem {
+public class PhoneBookVer07 implements MenuItem {
 	public static void printMenu() {
 		System.out.println("선택하세요...");
 		System.out.println("1.데이터 입력");
@@ -26,7 +27,6 @@ public class PhoneBookVer06 implements MenuItem {
 			try {
 				Scanner scan = new Scanner(System.in);
 				int choice = scan.nextInt();
-				
 				try {
 					if(choice<1||choice>5) {
 						MenuSelectException err = new MenuSelectException();
@@ -34,7 +34,7 @@ public class PhoneBookVer06 implements MenuItem {
 					}
 				}
 				catch(MenuSelectException e) {
-					System.out.println(e.getMessage());
+					e.printStackTrace();
 				}
 				
 				switch(choice) {
@@ -46,6 +46,9 @@ public class PhoneBookVer06 implements MenuItem {
 					break;
 				case DELETE:
 					handler.dataDelete();
+					break;
+				case AllDATA:
+					handler.dataAllShow();
 					break;
 				case EXIT:
 					System.out.println("프로그램을 종료합니다.");

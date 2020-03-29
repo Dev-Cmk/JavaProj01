@@ -1,11 +1,10 @@
+package project1;
 import java.util.Scanner;
 
-import ver05.MenuItem;
-import ver05.PhoneBookManager;
-
+import ver03.PhoneBookManager;
 import java.util.logging.Handler;
 
-public class PhoneBookVer05 implements MenuItem {
+public class PhoneBookVer09 {
 	public static void printMenu() {
 		System.out.println("선택하세요...");
 		System.out.println("1.데이터 입력");
@@ -26,19 +25,23 @@ public class PhoneBookVer05 implements MenuItem {
 			int choice = scan.nextInt();
 			
 			switch(choice) {
-			case INPUT:
+			case 1:
 				handler.dataInput();
 				break;
-			case SEARCH:
+			case 2:
 				handler.dataSearch();
 				break;
-			case DELETE:
+			case 3:
 				handler.dataDelete();
 				break;
-			case EXIT:
+			case 4:
+				handler.dataAllShow();
+				break;
+			case 5:
 				System.out.println("프로그램을 종료합니다.");
 				return;
 			}
 		}
+		
 	}
 }//end of class

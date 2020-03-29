@@ -1,11 +1,11 @@
-import java.util.InputMismatchException;
+package project1;
 import java.util.Scanner;
+import java.util.InputMismatchException;
+import ver08.MenuItem;
+import ver08.MenuSelectException;
+import ver08.PhoneBookManager;
 
-import ver07.MenuItem;
-import ver07.PhoneBookManager;
-import ver07.MenuSelectException;
-
-public class PhoneBookVer07 implements MenuItem {
+public class PhoneBookVer08 implements MenuItem {
 	public static void printMenu() {
 		System.out.println("선택하세요...");
 		System.out.println("1.데이터 입력");
@@ -17,7 +17,7 @@ public class PhoneBookVer07 implements MenuItem {
 	public static void main(String[] args) throws MenuSelectException {
 		PhoneBookManager handler = 
 				new PhoneBookManager();
-		
+		handler.PullData();
 		while(true) {
 			printMenu();
 			
@@ -51,6 +51,7 @@ public class PhoneBookVer07 implements MenuItem {
 					break;
 				case EXIT:
 					System.out.println("프로그램을 종료합니다.");
+					handler.SaveData();
 					return;
 				}
 			}
