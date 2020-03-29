@@ -16,9 +16,4 @@ public class PhoneCompanyInfo extends PhoneInfo {
 		System.out.println("회사:"+ Company_Name);
 	}
 	
-	@Override
-	public String toString() {
-		return "data 이름=" + name + ", 번호=" + phoneNumber
-				+ ", 회사=" + Company_Name;
-	}
 }

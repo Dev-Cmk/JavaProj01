@@ -1,8 +1,10 @@
 package ver05;
 
 import java.util.Scanner;
-
-public class PhoneBookManager implements SubMenuItem{
+import ver05.MenuItem;
+import ver05.PhoneBookManager;
+import ver05.SubMenuItem;
+public class PhoneBookManager implements MenuItem,SubMenuItem{
 
 	private PhoneInfo[] myFriends;
 	private int numOfFriends;
@@ -12,9 +14,42 @@ public class PhoneBookManager implements SubMenuItem{
 		numOfFriends = 0;
 	}
 	
+	public void printMenu() {
+		while(true) {
+			System.out.println("선택하세요...");
+			System.out.println("1.데이터 입력");
+			System.out.println("2.데이터 검색");
+			System.out.println("3.데이터 삭제");
+			System.out.println("4.주소록 출력");
+			System.out.println("5.프로그램 종료");
+			System.out.print("선택:");
+			Scanner scan = new Scanner(System.in);
+			int choice = scan.nextInt();
+			
+			switch(choice) {
+			case INPUT:
+				dataInput();
+				break;
+			case SEARCH:
+				dataSearch();
+				break;
+			case DELETE:
+				dataDelete();
+				break;
+			case AllDATA:
+				dataAllShow();
+				break;
+			case EXIT:
+				System.out.println("프로그램을 종료합니다.");
+				return;
+			}
+		}
+	}
+
+	
 	public void dataInput() {
 		System.out.println("데이터 입력을 시작합니다..");
-		System.out.println("1.일반, 2.동창 3.회사");
+		System.out.println("1.일반|| 2.동창|| 3.회사");
 		System.out.print("선택>>");
 		//사용자로부터 친구정보를 입력받기위한 준비
 		Scanner scan = new Scanner(System.in);

@@ -26,9 +26,9 @@ public class PhoneBookVer02 {
 			System.out.print("생년월일:");
 			System.in.read(input);
 			String birthday = new String(input);
-			int aa = birthday.charAt(0);
+			int check = birthday.charAt(0);
 			
-			if(aa==13) {
+			if(check==13) {
 				PhoneInfo p1 = new PhoneInfo(name, phonenumber);
 				System.out.print("\n 입력된 정보 출력...\n");
 				p1.showPhoneInfo();

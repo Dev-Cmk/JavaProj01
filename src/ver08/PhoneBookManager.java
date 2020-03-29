@@ -11,14 +11,69 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PhoneBookManager implements SubMenuItem{
+import ver08.MenuSelectException;
+import ver08.PhoneInfo;
 
-	HashSet<Object> set = new HashSet<Object>();
+public class PhoneBookManager implements MenuItem,SubMenuItem{
+
+	HashSet<PhoneInfo> set = new HashSet<PhoneInfo>();
+	
+	public void printMenu() throws MenuSelectException {
+		while(true) {
+			System.out.println("선택하세요...");
+			System.out.println("1.데이터 입력");
+			System.out.println("2.데이터 검색");
+			System.out.println("3.데이터 삭제");
+			System.out.println("4.주소록 출력");
+			System.out.println("5.프로그램 종료");
+			System.out.print("선택:");
+			try {
+				Scanner scan = new Scanner(System.in);
+				int choice = scan.nextInt();
+				
+				try {
+					if(choice<1||choice>5) {
+						MenuSelectException err = new MenuSelectException();
+						throw err;
+					}
+				}
+				catch(MenuSelectException e) {
+					System.out.println(e.getMessage());
+				}
+				
+				switch(choice) {
+				case INPUT:
+					dataInput();
+					break;
+				case SEARCH:
+					dataSearch();
+					break;
+				case DELETE:
+					dataDelete();
+					break;
+				case AllDATA:
+					dataAllShow();
+					break;
+				case EXIT:
+					System.out.println("프로그램을 종료합니다.");
+					return;
+				}
+			}
+			catch(InputMismatchException e) {
+				System.out.println("에러,정수를입력하세요");
+				continue;
+			}
+			catch(NullPointerException e) {
+				System.out.println("에러,검색결과가 없습니다.");
+				continue;
+			}
+		}//end of while
+	}
 	
 	public void dataInput() throws MenuSelectException {
 		try {
 			System.out.println("데이터 입력을 시작합니다..");
-			System.out.println("1.일반, 2.동창 3.회사");
+			System.out.println("1.일반 || 2.동창 || 3.회사");
 			System.out.print("선택>>");
 			//사용자로부터 친구정보를 입력받기위한 준비
 			Scanner scan = new Scanner(System.in);
@@ -41,7 +96,7 @@ public class PhoneBookManager implements SubMenuItem{
 					new PhoneInfo(iName, iPhone);
 			
 			int opt = 0;
-			Iterator<Object> itr = set.iterator();
+			Iterator<PhoneInfo> itr = set.iterator();
 			while(itr.hasNext()) {
 				PhoneInfo data = (PhoneInfo) itr.next();
 				if(iName.equals(data.name)) {
@@ -52,8 +107,9 @@ public class PhoneBookManager implements SubMenuItem{
 					set.remove(data);
 					set.add(fri);
 				}
-				set.add(fri);
-				System.out.print("데이터 입력이 완료되었습니다.");	
+				else if(opt==1){
+					dataInput();
+				}
 			}
 				set.add(fri);
 				System.out.print("데이터 입력이 완료되었습니다.");	
@@ -68,7 +124,7 @@ public class PhoneBookManager implements SubMenuItem{
 						new PhoneSchoolInfo(iName, iPhone,imajor, ilevel);
 				
 				int opt=1;
-				Iterator<Object> itr = set.iterator();
+				Iterator<PhoneInfo> itr = set.iterator();
 				while(itr.hasNext()) {
 					PhoneInfo data = (PhoneInfo) itr.next();
 					if(iName.equals(data.name)) {
@@ -93,7 +149,7 @@ public class PhoneBookManager implements SubMenuItem{
 						new PhoneCompanyInfo(iName, iPhone,iCompany_Name);
 				
 				int opt=1;
-				Iterator<Object> itr = set.iterator();
+				Iterator<PhoneInfo> itr = set.iterator();
 				while(itr.hasNext()) {
 					PhoneInfo data = (PhoneInfo) itr.next();
 					if(iName.equals(data.name)) {
@@ -128,7 +184,7 @@ public class PhoneBookManager implements SubMenuItem{
 			String searchName = sc.nextLine();
 			boolean searchFlag = false; //검색결과 유무 확인
 			
-			Iterator<Object> itr = set.iterator();
+			Iterator<PhoneInfo> itr = set.iterator();
 			while(itr.hasNext()) {
 				PhoneInfo data = (PhoneInfo) itr.next();
 				if(searchName.equals(data.name)) {
@@ -155,7 +211,7 @@ public class PhoneBookManager implements SubMenuItem{
 		
 		boolean searchFlag2 = false; //검색결과 유무 확인
 		
-		Iterator<Object> itr = set.iterator();
+		Iterator<PhoneInfo> itr = set.iterator();
 		while(itr.hasNext()) {
 			PhoneInfo data = (PhoneInfo) itr.next();
 			if(deleteName.equals(data.name)) {
@@ -176,10 +232,10 @@ public class PhoneBookManager implements SubMenuItem{
 	}
 	
 	public void dataAllShow() {
-		Iterator itr = set.iterator();
+		Iterator<PhoneInfo> itr = set.iterator();
 		while(itr.hasNext()) {
-			Object object = itr.next();
-				System.out.println("데이터:"+ object);
+			PhoneInfo object = (PhoneInfo) itr.next();
+				object.showPhoneInfo();
 			}
 		System.out.println("==전체정보가 출력되었습니다==");
 	}
@@ -212,16 +268,14 @@ public class PhoneBookManager implements SubMenuItem{
 					new FileInputStream("src/ver08/PhoneBook.obj")
 				);
 			
-			while(true) {
-				//저장된 파일에서 정보 1개 읽어오기
-				HashSet<Object> friend = (HashSet<Object>) in.readObject();
-				//만약 읽어올 정보(객체)가 더이상 없다면 루프 탈출
-				if(friend==null) break;
-				//읽어온 객체를 통해 정보출력
-				set = friend;
-				System.out.println(set);
-				System.out.println("==전체정보가 출력되었습니다==");
+			HashSet<PhoneInfo> data = (HashSet<PhoneInfo>) in.readObject();
+			Iterator<PhoneInfo> object = data.iterator();
+			while (object.hasNext())
+			{
+				object.next().showPhoneInfo();
 			}
+
+			in.close();
 		}
 		catch(Exception e)
 		{

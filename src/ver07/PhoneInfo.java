@@ -21,11 +21,6 @@ public class PhoneInfo {
 	}
 	
 	@Override
-	public String toString() {
-		return "data 이름=" + name + ", 번호=" + phoneNumber;
-	}
-	
-	@Override
 	public int hashCode() {
 		//객체가 가진 고유한값(참조값)을 int형으로 반환하는 메소드
 		int hc1 = name.hashCode();

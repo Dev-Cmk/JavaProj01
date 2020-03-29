@@ -15,8 +15,6 @@ public class PhoneBookManager extends IConnectImpl {
 	}
 	
 	public void printMenu() {
-		
-		
 		while(true) {
 			System.out.println("선택하세요...");
 			System.out.println("1.데이터 입력");
@@ -53,6 +51,7 @@ public class PhoneBookManager extends IConnectImpl {
 					dataAllShow();
 					break;
 				case 5:
+					close();
 					exit();
 				}//end of switch
 			}
@@ -217,6 +216,20 @@ public class PhoneBookManager extends IConnectImpl {
 			System.out.println("쿼리오류발생");
 			e.printStackTrace();
 			}
+	}
+	
+	public void close() {
+		try {
+			if(con!=null) con.close(); 
+			if(psmt!=null) psmt.close();
+			if(stmt!=null) stmt.close();
+			if(rs!=null) rs.close();
+			System.out.println("자원 반납 완료");
+		}
+		catch(Exception e) {
+			System.out.println("자원 반납시 오류 발생");
+			e.printStackTrace();
+		}
 	}
 	
 	public void exit() {
