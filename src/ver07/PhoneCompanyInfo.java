@@ -5,7 +5,7 @@ import ver07.PhoneInfo;
 public class PhoneCompanyInfo extends PhoneInfo {
 	String Company_Name;
 	
-	public PhoneCompanyInfo(String name,String phone,String Copany_Name) {
+	public PhoneCompanyInfo(String name,String phone,String Company_Name) {
 		super(name,phone);
 		this.Company_Name = Company_Name;
 	}

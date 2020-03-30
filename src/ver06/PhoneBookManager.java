@@ -16,7 +16,7 @@ public class PhoneBookManager implements SubMenuItem,MenuItem{
 	}
 	
 	
-	public void printMenu() throws MenuSelectException {
+	public void printMenu() {
 		while(true) {
 			System.out.println("선택하세요...");
 			System.out.println("1.데이터 입력");
@@ -24,19 +24,18 @@ public class PhoneBookManager implements SubMenuItem,MenuItem{
 			System.out.println("3.데이터 삭제");
 			System.out.println("4.주소록 출력");
 			System.out.println("5.프로그램 종료");
-			System.out.print("선택:");
 			try {
+				System.out.print("선택:");
 				Scanner scan = new Scanner(System.in);
 				int choice = scan.nextInt();
 				
-				try {
-					if(choice<1||choice>5) {
-						MenuSelectException err = new MenuSelectException();
-						throw err;
-					}
+				if(choice<1) {
+					MenuSelectException err = new MenuSelectException();
+					throw err;
 				}
-				catch(MenuSelectException e) {
-					System.out.println(e.getMessage());
+				else if(choice>5) {
+					MenuSelectException err = new MenuSelectException();
+					throw err;
 				}
 				
 				switch(choice) {
@@ -64,6 +63,9 @@ public class PhoneBookManager implements SubMenuItem,MenuItem{
 			catch(NullPointerException e) {
 				System.out.println("에러,검색결과가 없습니다.");
 				continue;
+			}
+			catch(MenuSelectException e) {
+				System.out.println(e.getMessage());
 			}
 		}//end of while
 	}
