@@ -147,7 +147,7 @@ public class PhoneBookManager extends IConnectImpl {
 			String searchName = scan.next();
 			
 			System.out.println("name      phone     birth");
-			String query = "SELECT iName,iPhone,iBirth FROM phonebook_tb WHERE iName LIKE '" + searchName + "' ";
+			String query = "SELECT iName,iPhone,iBirth FROM phonebook_tb WHERE iName LIKE ' "+ '%'+searchName + '%' +" ";
 			
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
