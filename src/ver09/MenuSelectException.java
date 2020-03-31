@@ -1,6 +1,6 @@
 package ver09;
 
-public class MenuSelectException extends Exception{
+public class MenuSelectException extends Exception {
 	public MenuSelectException() {
 		super("입력값 범위 초과");
 	}

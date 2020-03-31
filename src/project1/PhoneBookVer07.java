@@ -6,8 +6,7 @@ import ver07.MenuSelectException;
 
 public class PhoneBookVer07 implements MenuItem {
 	public static void main(String[] args) throws MenuSelectException {
-		PhoneBookManager handler = 
-				new PhoneBookManager();
-		handler.printMenu();	
-	}//end of main
-}//end of class
+		PhoneBookManager handler = new PhoneBookManager();
+		handler.printMenu();
+	}// end of main
+}// end of class

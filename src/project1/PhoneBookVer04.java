@@ -4,8 +4,7 @@ import ver04.PhoneBookManager;
 
 public class PhoneBookVer04 {
 	public static void main(String[] args) {
-		PhoneBookManager handler = 
-				new PhoneBookManager();
+		PhoneBookManager handler = new PhoneBookManager();
 		handler.printMenu();
 	}
-}//end of class
+}// end of class
