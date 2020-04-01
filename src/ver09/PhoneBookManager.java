@@ -69,8 +69,8 @@ public class PhoneBookManager extends IConnectImpl {
 			String query = "create table phonebook_tb( " + " iName varchar2(100) primary key, "
 					+ " iPhone varchar2(100), " + " iBirth varchar2(100)" + ")";
 
-			psmt = con.prepareStatement(query);
-			psmt.executeUpdate();
+			stmt = con.prepareStatement(query);
+			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			System.out.println("쿼리오류발생");
 			e.printStackTrace();
@@ -84,8 +84,8 @@ public class PhoneBookManager extends IConnectImpl {
 			String query = "create sequence seq_phonebook " + " increment by 1 " + " start with 1 " + " nomaxvalue "
 					+ " minvalue 1 " + " nocycle " + " nocache ";
 
-			psmt = con.prepareStatement(query);
-			psmt.executeUpdate();
+			stmt = con.prepareStatement(query);
+			stmt.executeUpdate(query);
 		} catch (SQLException e) {
 			System.out.println("쿼리오류발생");
 			e.printStackTrace();
