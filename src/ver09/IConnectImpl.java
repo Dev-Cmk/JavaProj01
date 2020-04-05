@@ -46,6 +46,7 @@ public class IConnectImpl implements IConnect {
 		}
 	}
 
+	//객체반환
 	public void close() {
 		try {
 			if (con != null)
